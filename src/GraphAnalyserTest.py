@@ -9,6 +9,22 @@ class GraphAnalyserTest(unittest.TestCase):
         result = GraphAnalyser.combineChainWithNeighbors(chain, neighbors)
         self.assertEqual(result, [['a', 'b', 'c'], ['a', 'b', 'd']])
 
+    def test_combineChainWithNeighbors_omits_repeated_items(self):
+        chain = ['a', 'b']
+        neighbors = ['b', 'c', 'd']
+        result = GraphAnalyser.combineChainWithNeighbors(chain, neighbors)
+        self.assertEqual(result, [['a', 'b', 'c'], ['a', 'b', 'd']])
+
+    def test_findShortestPath_returns_none_when_there_is_no_path(self):
+        a = 'a'
+        b = 'b'
+        connections = {
+          b: [a],
+        }
+        getNeighbours = lambda x: []
+        result = GraphAnalyser.findShortestPath(getNeighbours, a, b)
+        self.assertEqual(result, None)
+
     def test_findShortestPath_works_for_same_item(self):
         a = 'a'
         getNeighbours = lambda x: []
