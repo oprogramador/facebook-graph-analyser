@@ -3,13 +3,19 @@ import GraphAnalyser
 
 class GraphAnalyserTest(unittest.TestCase):
 
-    def test_findShortestPath_returns_zero_for_neighbors(self):
+    def test_combineChainWithNeighbors_combines(self):
+        chain = ['a', 'b']
+        neighbors = ['c', 'd']
+        result = GraphAnalyser.combineChainWithNeighbors(chain, neighbors)
+        self.assertEqual(result, [['a', 'b', 'c'], ['a', 'b', 'd']])
+
+    def test_findShortestPath_works_for_same_item(self):
         a = 'a'
         getNeighbours = lambda x: []
         result = GraphAnalyser.findShortestPath(getNeighbours, a, a)
-        self.assertEqual(result, 0)
+        self.assertEqual(result, ['a'])
 
-    def test_findShortestPath_returns_one_for_neighbors(self):
+    def test_findShortestPath_works_for_neighbors(self):
         a = 'a'
         b = 'b'
         connections = {
@@ -17,10 +23,9 @@ class GraphAnalyserTest(unittest.TestCase):
         }
         getNeighbours = lambda x: connections[x]
         result = GraphAnalyser.findShortestPath(getNeighbours, a, b)
-        self.assertEqual(result, 1)
+        self.assertEqual(result, ['a', 'b'])
 
-    @unittest.skip('')
-    def test_findShortestPath_returns_two_for_second_level_neighbors(self):
+    def test_findShortestPath_works_for_second_level_neighbors(self):
         a = 'a'
         b = 'b'
         c = 'c'
@@ -30,7 +35,21 @@ class GraphAnalyserTest(unittest.TestCase):
         }
         getNeighbours = lambda x: connections[x]
         result = GraphAnalyser.findShortestPath(getNeighbours, a, c)
-        self.assertEqual(result, 2)
+        self.assertEqual(result, ['a', 'b', 'c'])
+
+    def test_findShortestPath_works_for_third_level_neighbors(self):
+        a = 'a'
+        b = 'b'
+        c = 'c'
+        d = 'd'
+        connections = {
+          a: [b],
+          b: [c],
+          c: [d],
+        }
+        getNeighbours = lambda x: connections[x]
+        result = GraphAnalyser.findShortestPath(getNeighbours, a, d)
+        self.assertEqual(result, ['a', 'b', 'c', 'd'])
 
 if __name__ == '__main__':
     unittest.main()
