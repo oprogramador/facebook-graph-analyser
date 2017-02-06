@@ -14,7 +14,6 @@ setup(
     author="oprogramador",
     packages=find_packages(),
     install_requires=[
-        "networkx",
         "facebook-sdk"
     ],
     long_description=long_description,
