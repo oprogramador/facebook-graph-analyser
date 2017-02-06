@@ -3,7 +3,7 @@ def combineChainWithNeighbors(chain, neighbors):
     return map(lambda last: chain + [last], neighborsWithoutRepetitions)
 
 def findShortestPath(getNeighbours, start, end):
-    if start is end:
+    if start == end:
         return [start]
     chains = combineChainWithNeighbors([start], getNeighbours(start))
     while True:
@@ -11,7 +11,7 @@ def findShortestPath(getNeighbours, start, end):
         isAnyNeighbor = False
         for chain in chains:
             item  = chain[-1]
-            if item is end:
+            if item == end:
                 return chain
             neighbors = getNeighbours(item)
             if len(neighbors) > 0:
