@@ -1,7 +1,7 @@
 import unittest
 import FacebookConnector
 
-class facebook_connector_test(unittest.TestCase):
+class FacebookConnectorTest(unittest.TestCase):
 
     def test_getFriends_returns_a_list(self):
         result = FacebookConnector.getFriends('me')
